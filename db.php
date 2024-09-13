@@ -2,7 +2,7 @@
 $host = 'localhost';
 $usuario = 'root';
 $clave = '';
-$bd = 'control_usuarios';
+$bd = 'controlusuarios';
 
 $conexion = new mysqli($host, $usuario, $clave, $bd);
 
