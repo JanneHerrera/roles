@@ -1,6 +1,6 @@
 <?php
 function encriptarClave($clave) {
-    return password_hash($clave, PASSWORD_BCRYPT);
+    return password_hash($clave, PASSWORD_ARGON2ID);
 }
 
 function verificarClave($clave, $clave_hash) {
