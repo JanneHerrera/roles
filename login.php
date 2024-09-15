@@ -13,11 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_result($clave_hash, $rol_id);
     $stmt->fetch();
     $stmt->close();
-
+    
     if (verificarClave($clave, $clave_hash)) {
         $_SESSION['nombre_usuario'] = $nombre_usuario;
         $_SESSION['rol_id'] = $rol_id;
-        echo "Inicio de sesión exitoso.";
+        $stmt = $conexion->prepare("SELECT nombre FROM roles WHERE id = ?");
+        $stmt->bind_param("i", $rol_id);
+        $stmt->execute();
+        $stmt->bind_result($rol);
+        $stmt->fetch();
+        $stmt->close();
+        echo "Hola ".$nombre_usuario.", tienes el rol de: ". $rol;
     } else {
         echo "Nombre de usuario o contraseña incorrectos.";
     }
