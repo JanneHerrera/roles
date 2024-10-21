@@ -19,35 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $stmt->close();
 }
+require_once 'navBar.php';
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NavBar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-    </style>
-</head>
+
 <body>
 
     <div class="navbar">
@@ -55,8 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <a href="./registro.php">Sign In</a>
     </div>
     <form method="post">
-        Nombre de usuario: <input type="text" name="nombre_usuario" required><br>
-        Contraseña: <input type="password" name="clave" required><br>
+        <label for='nombre_usuario'>Nombre:</label></br>
+        <input type="text" name="nombre_usuario" required><br>
+        <label for='clave'> contraseña</label></br>
+        <input type="password" name="clave" required><br>
         Rol:
         <select name="rol_id">
             <?php
@@ -71,4 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 </body>
+
 </html>

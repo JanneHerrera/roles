@@ -2,7 +2,7 @@
 session_start();
 include 'db.php';
 include 'functions.php';
-
+require_once('navBar.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nombre_usuario = $_POST['nombre_usuario'];
     $clave = $_POST['clave'];
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_result($clave_hash, $rol_id);
     $stmt->fetch();
     $stmt->close();
-    
+
     if (verificarClave($clave, $clave_hash)) {
         $_SESSION['nombre_usuario'] = $nombre_usuario;
         $_SESSION['rol_id'] = $rol_id;
@@ -23,52 +23,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_result($rol);
         $stmt->fetch();
         $stmt->close();
-        echo "Hola ".$nombre_usuario.", tienes el rol de: ". $rol;
+        header("Location: dashboard.php");
     } else {
-        echo "Nombre de usuario o contraseña incorrectos.";
+        header("login.php");
+        echo "Nombre de usuario o contraseña incorrectos.</br>";
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NavBar</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
-        }
-    </style>
-</head>
+
 <body>
 
     <div class="navbar">
         <a href="./login.php">Login</a>
         <a href="./registro.php">Sign In</a>
     </div>
-    <form method="post">
-        Nombre de usuario: <input type="text" name="nombre_usuario" required><br>
-        Contraseña: <input type="password" name="clave" required><br>
+    <form method="post" action="login.php">
+        <label for='nombre_usuario'>Nombre:</label></br>
+        <input type="text" name="nombre_usuario" required><br>
+        <label for='clave'> contraseña</label></br>
+        <input type="password" name="clave" required><br>
         <input type="submit" value="Iniciar sesión">
     </form>
-    
+
 
 </body>
+
 </html>
